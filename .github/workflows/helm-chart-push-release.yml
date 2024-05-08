@@ -1,13 +1,14 @@
-name: Release Charts
+name: "Push Helm chart to Github Pages on release"
 
 on:
   push:
+   # tags:
+   #   - v*
     branches:
       - helm
-  workflow_dispatch:
 
 jobs:
-  release:
+  build-and-push-helm-chart:
     permissions:
       contents: write
     runs-on: ubuntu-latest
@@ -27,5 +28,6 @@ jobs:
         with:
           charts_dir: deployment
           pages_branch: gh-pages
+          packages_with_index: true
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
